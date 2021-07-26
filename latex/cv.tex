@@ -1,0 +1,280 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deedy - One Page Two Column Resume
+% LaTeX Template
+% Version 1.2 (16/9/2014)
+%
+% Original author:
+% Debarghya Das (http://debarghyadas.com)
+%
+% Original repository:
+% https://github.com/deedydas/Deedy-Resume
+%
+% IMPORTANT: THIS TEMPLATE NEEDS TO BE COMPILED WITH XeLaTeX
+%
+% This template uses several fonts not included with Windows/Linux by
+% default. If you get compilation errors saying a font is missing, find the line
+% on which the font is used and either change it to a font included with your
+% operating system or comment the line out to use the default font.
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% TODO:
+% 1. Integrate biber/bibtex for article citation under publications.
+% 2. Figure out a smoother way for the document to flow onto the next page.
+% 3. Add styling information for a "Projects/Hacks" section.
+% 4. Add location/address information
+% 5. Merge OpenFont and MacFonts as a single sty with options.
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CHANGELOG:
+% v1.1:
+% 1. Fixed several compilation bugs with \renewcommand
+% 2. Got Open-source fonts (Windows/Linux support)
+% 3. Added Last Updated
+% 4. Move Title styling into .sty
+% 5. Commented .sty file.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Known Issues:
+% 1. Overflows onto second page if any column's contents are more than the
+% vertical limit
+% 2. Hacky space on the first bullet point on the second column.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[]{deedy-resume-openfont}
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+ 
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     LAST UPDATED DATE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lastupdated
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     TITLE NAME
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\namesection{Sumanth}{Gurram}{ \urlstyle{same}
+\href{mailto:sumanthgurram@berkeley.edu}{sumanthgurram@berkeley.edu} | 858.848.4726
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     COLUMN ONE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{minipage}[t]{0.33\textwidth} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EDUCATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Education} 
+
+\subsection{UC Berkeley}
+\descript{BS in EECS}
+\descript{BS in Business}
+
+\location{Expected May 2023}
+\location{GPA: 3.82 / 4.00}
+\location{\bf 
+    M.E.T. Dual Degree Program \\
+    Eta Kappa Nu (EECS Honors Society) \\
+    EECS Honors Program \\
+    Blockchain at Berkeley
+}
+    
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     LINKS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Links} 
+Github: \href{https://github.com/sumanthgenz}{\bf sumanthgenz} \\
+LinkedIn:  \href{https://www.linkedin.com/in/sumanth-gurram}{\bf sumanth-gurram} \\
+
+
+\section{Skills}
+\subsection{Languages}
+Python \textbullet{} Java \textbullet{} C \textbullet{} HTML/CSS \textbullet{} \\
+SQL \textbullet{} JavaScript \textbullet{} C\#  \textbullet{} RISC-V \\ Assembly 
+\textbullet{} Soliditiy  
+
+\sectionsep
+\subsection{Tools}
+PyTorch \textbullet{} TensorFlow \textbullet{} Keras \textbullet{} \\
+NumPy \textbullet Scikit-Learn  \textbullet{} Pandas \textbullet{} \\
+OpenCV \textbullet{}  Matplotlib \textbullet{} Git \textbullet{} \\
+Selenium  \textbullet{} UNIX \textbullet{} Docker \textbullet{} \\
+React \textbullet{} Node.js \textbullet{}  Express \textbullet{} MongoDB \textbullet{} \\
+GCP \textbullet{} Azure \textbullet{} OpenMP \textbullet{} Spark \textbullet{} \\
+CUDA \textbullet{} ffmpeg \textbullet{} Unity \textbullet{} Arduino
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     COURSEWORK
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Coursework}
+{\bf CS 61A:} Programs \\
+{\bf CS 61B:} Data Structures \\
+{\bf CS 61C:} Computer Architecture \\
+{\bf CS 70:} Discrete Math \& Probability \\
+{\bf CS 162:} Operating Systems \\
+{\bf CS 170:} Algorithms \& Intractability \\
+{\bf CS 188:} Artificial Intelligence \\
+{\bf EECS 16A:} Linear Algebra \& Circuits \\
+{\bf EECS 16B:} Diff. Equations \& Control \\
+{\bf EECS 126:}  Random Processes \\
+{\bf ECON 1:}  Microeconomics \\
+{\bf UGBA 102A:}   Accounting \\
+{\bf UGBA 103:}  Finance \\
+{\bf MATH 53:}  Multivariable Calculus \\
+
+\sectionsep
+
+\section{Awards}
+M.E.T. Program (1.5\% acceptance rate)  \\
+IEEE Eta Kappa Nu (top 25\% of EECS) \\
+Dean's Honors List (top 10\% sem. GPA) \\
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     COLUMN TWO
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{minipage} 
+\hfill
+\begin{minipage}[t]{0.66\textwidth} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EXPERIENCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Experience}
+\runsubsection{Apple}
+\descript{| Software Engineer Intern, Robotics }
+\location{May 2021 – Present | Cupertino, CA}
+\vspace{\topsep} % Hacky fix for awkward extra vertical space
+\begin{tightemize}
+\item Perception and pose-estimation for robots that test Apple Watch
+\item Machine learning, 3D computer vision, simulation and data infrastructure
+\end{tightemize}
+\sectionsep
+
+\runsubsection{ServiceNow}
+\descript{| Machine Learning Intern, ATG}
+\location{May 2020 – Aug 2020 | Santa Clara, CA}
+\begin{tightemize}
+\item Developed production NLP models with 92\% accuracy in intent classification
+\item Built data and model benchmarking infrastructure; presented to C-suite
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Microsoft}
+\descript{| Contract Software Engineer}
+\location{Jan 2020 – May 2020 | Berkeley, CA}
+\begin{tightemize}
+\item Created a secure payment backend to scalably verify 1M+ transactions
+\item Delivered solution to Quisitive team as part of  Blockchain at Berkeley contract
+
+\end{tightemize}
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     RESEARCH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Research}
+\runsubsection{Berkeley AI Research}
+\descript{| Undergraduate Researcher }
+\location{May 2020 – Present | Berkeley, CA}
+\begin{tightemize}
+\item Advised by Prof. John Canny for video perception with vision, audio, language
+\item Developing self-supervised algorithms; distributed compute on large datasets
+\end{tightemize}
+\sectionsep
+
+
+\runsubsection{Sanford Burnham Prebys}
+\descript{| Research Intern}
+\location{July 2017 – July 2019 | San Diego, CA}
+\begin{tightemize}
+\item Built electromagnetic IoT devices to research EMFs for cancer therapy
+\item  Performed biochemical data analysis, achieving 98\% cancer cell-death in vitro
+\end{tightemize}
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     PROJECTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Projects}
+\runsubsection{magma}
+\descript{2021 - Present}
+\location{}
+\begin{tightemize}
+\item Automatically build image, audio, video and text datasets using web search
+\item Python / PyTorch / Google Cloud / Selenium / HTML / NLTK / Multiprocessing
+\end{tightemize}
+\sectionsep
+
+\runsubsection{LAVA}
+\descript{2020 - Present}
+\location{}
+\begin{tightemize}
+\item Large-scale language, audio and video perception across 1M+ YouTube videos 
+\item Python / PyTorch / Unsupervised Learning / Transformers / CUDA / ffmpeg 
+\end{tightemize}
+\sectionsep
+
+\runsubsection{numC}
+\descript{2020}
+\location{}
+\begin{tightemize}
+\item NumPy but for C with up to 1600X faster matrix arithmetic than naive
+\item C / OpenMP / Intel SIMD / Python / NumPy / Spark / Parallel Computing 
+\end{tightemize}
+\sectionsep
+
+
+\runsubsection{Jarvis}
+\descript{2020}
+\location{}
+\begin{tightemize}
+\item Neural voice assistant to answers questions on FAQ pages in <5 seconds
+\item Python / Java / PyTorch / TensorFlow / Pandas / NLP / Speech Recognition 
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Confiar}
+\descript{2019}
+\location{}
+\begin{tightemize}
+\item Decentralized app for resolving real estate disputes; team consultancy project 
+\item Solidity / Javascript / React / Node / MongoDB / Blockchain at Berkeley 
+\end{tightemize}
+\sectionsep
+
+
+
+\end{minipage} 
+\end{document}  \documentclass[]{article}
