@@ -1,0 +1,291 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Deedy - One Page Two Column Resume
+% LaTeX Template
+% Version 1.2 (16/9/2014)
+%
+% Original author:
+% Debarghya Das (http://debarghyadas.com)
+%
+% Original repository:
+% https://github.com/deedydas/Deedy-Resume
+%
+% IMPORTANT: THIS TEMPLATE NEEDS TO BE COMPILED WITH XeLaTeX
+%
+% This template uses several fonts not included with Windows/Linux by
+% default. If you get compilation errors saying a font is missing, find the line
+% on which the font is used and either change it to a font included with your
+% operating system or comment the line out to use the default font.
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% TODO:
+% 1. Integrate biber/bibtex for article citation under publications.
+% 2. Figure out a smoother way for the document to flow onto the next page.
+% 3. Add styling information for a "Projects/Hacks" section.
+% 4. Add location/address information
+% 5. Merge OpenFont and MacFonts as a single sty with options.
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CHANGELOG:
+% v1.1:
+% 1. Fixed several compilation bugs with \renewcommand
+% 2. Got Open-source fonts (Windows/Linux support)
+% 3. Added Last Updated
+% 4. Move Title styling into .sty
+% 5. Commented .sty file.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Known Issues:
+% 1. Overflows onto second page if any column's contents are more than the
+% vertical limit
+% 2. Hacky space on the first bullet point on the second column.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[]{deedy-resume-openfont}
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+ 
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     LAST UPDATED DATE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lastupdated
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     TITLE NAME
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\namesection{Sumanth}{Gurram}{ \urlstyle{same}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     COLUMN ONE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{minipage}[t]{0.33\textwidth} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EDUCATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Education} 
+
+\subsection{UC Berkeley}
+\descript{BS in EECS}
+\descript{BS in Business}
+
+\location{Aug 2019 - May 2023}
+\location{\bf 
+    M.E.T. Dual Degree Program \\
+    EECS Honors Program \\
+    Blockchain at Berkeley \\
+    Soma Capital 2022 Fellow
+
+}
+    
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     LINKS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Links} 
+LinkedIn:  \href{https://www.linkedin.com/in/sumanth-gurram}{\bf sumanth-gurram} \\
+Github: \href{https://github.com/sumanthgenz}{\bf sumanthgenz} \\
+Google Scholar: \href{https://scholar.google.com/citations?user=btuY0PQAAAAJ&hl=en&oi=sra}{\bf sumanth gurram} \\
+
+
+\section{Skills}
+\subsection{Languages}
+Python \textbullet{} Java \textbullet{} C \textbullet{}
+C++ \textbullet{} Go \textbullet{} SQL \textbullet{}\\
+JavaScript \textbullet{} TypeScript \textbullet{} HTML/CSS \textbullet{} \\ 
+C\# \textbullet{} Solidity \textbullet{} RISC-V \textbullet{} Intel x86  \\
+
+
+\sectionsep
+\subsection{Tools}
+PyTorch \textbullet{} TensorFlow \textbullet{} Scikit-Learn \textbullet{} \\
+Docker \textbullet{} Kubernetes \textbullet{} Bazel \textbullet{} \\
+GCP  \textbullet{} BigQuery \textbullet{} AWS  \textbullet{}  Azure \textbullet{} \\
+PostgreSQL  \textbullet{}  React.js \textbullet{} Node.js \textbullet{} \\
+Jira \textbullet{} Retool \textbullet{} Unity \textbullet{} LaTeX \\
+
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     COURSEWORK
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Coursework}
+\subsection{CS}
+{\bf CS 61A:} Programs \\
+{\bf CS 61B:} Data Structures \\
+{\bf CS 61C:} Computer Architecture \\
+{\bf CS 162:} Computer Security \\
+{\bf CS 162:} Operating Systems \\
+{\bf CS 170:} Algorithms \& Intractability \\
+{\bf CS 186:} Database Systems \\
+\sectionsep
+
+\subsection{EE}
+{\bf EECS 16A:} Linear Algebra \& Circuits \\
+{\bf EECS 16B:} Diff. Equations \& Controls \\
+\sectionsep
+
+\subsection{Math \& ML}
+{\bf MATH 53:} Multivariable Calculus \\
+{\bf CS 70:} Discrete Math \& Probability \\
+{\bf CS 188:} Artificial Intelligence \\
+{\bf EECS 126:}  Random Processes \\
+
+
+\sectionsep
+
+\section{Awards}
+IEEE Eta Kappa Nu (top 25\% of EECS) \\
+Dean's Honors List (top 10\% sem. GPA) \\
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%     COLUMN TWO
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{minipage} 
+\hfill
+\begin{minipage}[t]{0.66\textwidth} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     EXPERIENCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Industry}
+\runsubsection{Zip}
+\descript{| Software Engineer }
+\location{June 2023 – Future | San Francisco, CA}
+\vspace{\topsep} % Hacky fix for awkward extra vertical 
+\begin{tightemize}
+\item Working on Intake and Approvals, Zip's first core product
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Meta}
+\descript{| Software Engineer Intern }
+\location{July 2022 – Sept 2022 | Menlo Park, CA}
+\begin{tightemize}
+\item Worked on Segment Anything (SAM) at FAIR under Reality Labs
+\item Created gaze and speech-based modules for interactive segmentation
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Nuro}
+\descript{| Software Engineer Intern }
+\location{April 2022 – July 2022 | Mountain View, CA}
+\begin{tightemize}
+\item  Worked on distributed file system (NuFS) that stores >100 PB self-driving data
+\item Built new cost tracking, data migration, synthetic traffic infrastructure for NuFS
+\end{tightemize}
+\sectionsep
+
+\runsubsection{TruEra}
+\descript{| Machine Learning Intern}
+\location{Jan 2022 – April 2022 | Redwood City, CA}
+\begin{tightemize}
+\item Did research and built system to detect NLP bias across customer data
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Apple}
+\descript{| Machine Learning Intern}
+\location{May 2021 – Aug 2021 | Cupertino, CA}
+\begin{tightemize}
+\item Delivered 3D object pose-estimation module for robots that test Apple Watch
+\end{tightemize}
+\sectionsep
+
+\runsubsection{ServiceNow}
+\descript{| Machine Learning Intern}
+\location{May 2020 – Aug 2020 | Santa Clara, CA}
+\begin{tightemize}
+\item Data mining infrastructure and NLP model development; presented to C-suite
+\end{tightemize}
+\sectionsep
+
+
+\sectionsep
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     RESEARCH
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Research}
+\runsubsection{Sky Computing}
+\descript{| Undergraduate Researcher }
+\location{Aug 2022 – Present | Berkeley, CA}
+\begin{tightemize}
+\item Advised by Prof. Ion Stoica and Zhanghao Wu for multi-cloud ML infra
+\end{tightemize}
+\sectionsep
+
+\runsubsection{Berkeley AI Research}
+\descript{| Undergraduate Researcher }
+\location{May 2020 – July 2022 | Berkeley, CA}
+\begin{tightemize}
+\item Advised by Prof. John Canny and David Chan for multi-modal video learning
+\end{tightemize}
+\sectionsep
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     PUBLICATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Publications} 
+\renewcommand\refname{\vskip -1.5em} % Couldn't get this working from the .cls file
+\bibliographystyle{abbrv}
+\bibliography{publications}
+\nocite{*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%     PROJECTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Projects}
+\runsubsection{Arrow}
+\descript{2022}
+\location{}
+\begin{tightemize}
+\item Building a CI platform to test ML models + track metrics on key data segments
+\item PyTorch / Tensorflow / AWS Amplify, Lambda, S3 / Docker / React / CSS
+\end{tightemize}
+\sectionsep
+
+\runsubsection{PintOS}
+\descript{2021}
+\location{}
+\begin{tightemize}
+\item Built OS to handle processes, threads, scheduling, I/O and a file system
+\item C / x86 / Syscalls / Synchronization / Memory Management / I/O / File System
+\end{tightemize}
+\sectionsep
+
+
+\end{minipage} 
+\end{document}  \documentclass[]{article}
