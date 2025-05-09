@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap");
+
 /* latin-ext */
 @font-face {
   font-family: "Lato";
@@ -97,7 +99,8 @@ th,
 tr,
 p,
 a {
-  font-family: "Fira Mono", "Menlo", "Monaco", "Consolas", monospace;
+  font-family: "IBM Plex Mono", "Fira Mono", "Menlo", "Monaco", "Consolas",
+    monospace;
   font-size: 14px;
   background: #181a1b;
   color: #e0e0e0;
@@ -107,7 +110,8 @@ strong,
 heading,
 papertitle,
 name {
-  font-family: "Lato", Verdana, Helvetica, sans-serif;
+  font-family: "IBM Plex Mono", "Fira Mono", "Menlo", "Monaco", "Consolas",
+    monospace;
   color: #e0e0e0;
 }
 
@@ -159,7 +163,7 @@ name {
 papertitle {
   font-size: 15px;
   font-weight: 700;
-  color: #00ffe7;
+  color: #5d2815;
 }
 
 .one,
@@ -175,7 +179,7 @@ papertitle {
 
 span.highlight {
   background-color: #222;
-  color: #00ffe7;
+  color: #5d2815;
 }
 
 /* Minimal padding for a clean look */
