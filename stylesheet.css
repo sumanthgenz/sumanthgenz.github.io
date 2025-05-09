@@ -116,7 +116,7 @@ name {
 }
 
 a {
-  color: #b05555;
+  color: #05eeff;
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -156,14 +156,14 @@ heading {
 name {
   font-size: 32px;
   font-weight: bold;
-  color: #b05555;
+  color: #05eeff;
   letter-spacing: 2px;
 }
 
 papertitle {
   font-size: 15px;
   font-weight: 700;
-  color: #b05555;
+  color: #05eeff;
 }
 
 .one,
@@ -179,7 +179,7 @@ papertitle {
 
 span.highlight {
   background-color: #222;
-  color: #b05555;
+  color: #05eeff;
 }
 
 /* Minimal padding for a clean look */
