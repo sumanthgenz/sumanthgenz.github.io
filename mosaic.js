@@ -4,8 +4,12 @@ const sampler = document.querySelector("#sampler");
 const samplerContext = sampler.getContext("2d", { willReadFrequently: true });
 
 const GRID_SIZE = 64;
+const PORTRAIT_RENDER_SIZE = 512;
 const MAX_DEPTH = 5;
 const SPLIT_LOCK_MS = 150;
+const TOUCH_DRAG_THRESHOLD = 6;
+const TOUCH_SPLIT_DISTANCE = 5;
+const TOUCH_SPLIT_LOCK_MS = 55;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const destinations = [
@@ -36,12 +40,15 @@ const destinations = [
 ];
 
 let pixelData = null;
+let portraitDataUrl = "";
 let interactionsEnabled = false;
-let touchSplitConsumed = false;
 let lastSplitX = Number.NaN;
 let lastSplitY = Number.NaN;
 let lastSplitTime = 0;
 let guidedDepth = 0;
+let guidedRenderFrame = 0;
+let touchGesture = null;
+let suppressClickUntil = 0;
 
 function averageColor(x, y, size) {
   if (!pixelData) return "#171715";
@@ -94,6 +101,7 @@ function makeTile({ x, y, size, depth, destinationIndex, locked = false }) {
   tile.dataset.y = y;
   tile.dataset.size = size;
   tile.dataset.destination = destinationIndex;
+  tile.dataset.label = destination.label;
   tile.setAttribute("aria-label", destination.label);
   tile.style.left = `${x * 100}%`;
   tile.style.top = `${y * 100}%`;
@@ -102,39 +110,15 @@ function makeTile({ x, y, size, depth, destinationIndex, locked = false }) {
   tile.style.setProperty("--tile-size", size * 100);
   tile.style.setProperty("--depth", depth);
   tile.style.setProperty("--accent", destination.accent);
+  tile.style.setProperty("--label-opacity", Math.max(0.3, 1 - depth * 0.13));
   tile.style.backgroundColor = background;
   tile.style.color = depth === 0 ? destination.accent : textColor(background);
-
-  const label = document.createElement("span");
-  label.className = "tile__label";
-  label.textContent = destination.label;
-  label.style.opacity = Math.max(0.3, 1 - depth * 0.13);
-  tile.append(label);
-
-  let holdTimer;
-  tile.addEventListener("pointerdown", (event) => {
-    if (event.pointerType !== "touch" || depth >= MAX_DEPTH) return;
-    holdTimer = window.setTimeout(() => {
-      touchSplitConsumed = true;
-      splitTile(tile);
-      window.setTimeout(() => {
-        touchSplitConsumed = false;
-      }, 700);
-    }, 420);
-  });
-  tile.addEventListener("pointerup", () => window.clearTimeout(holdTimer));
-  tile.addEventListener("pointercancel", () => window.clearTimeout(holdTimer));
-  tile.addEventListener("click", (event) => {
-    if (!touchSplitConsumed) return;
-    event.preventDefault();
-    touchSplitConsumed = false;
-  });
 
   if (locked) tile.style.pointerEvents = "none";
   return tile;
 }
 
-function splitTile(tile) {
+function splitTile(tile, unlockDelay = SPLIT_LOCK_MS) {
   if (!tile.isConnected) return;
 
   const depth = Number(tile.dataset.depth);
@@ -195,7 +179,7 @@ function splitTile(tile) {
     children.forEach((child) => {
       child.style.pointerEvents = "auto";
     });
-  }, SPLIT_LOCK_MS);
+  }, unlockDelay);
 }
 
 function renderInitialTiles() {
@@ -214,6 +198,11 @@ function renderInitialTiles() {
   });
 }
 
+function clearRasterizedMosaic() {
+  mosaic.classList.remove("mosaic--rasterized");
+  mosaic.style.removeProperty("background-image");
+}
+
 function updateSubdivideButton() {
   if (guidedDepth >= MAX_DEPTH) {
     subdivideButton.textContent = "RESET";
@@ -226,6 +215,11 @@ function updateSubdivideButton() {
 }
 
 function resetMosaic() {
+  if (guidedRenderFrame) {
+    window.cancelAnimationFrame(guidedRenderFrame);
+    guidedRenderFrame = 0;
+  }
+  clearRasterizedMosaic();
   mosaic.replaceChildren();
   guidedDepth = 0;
   lastSplitX = Number.NaN;
@@ -235,10 +229,59 @@ function resetMosaic() {
   updateSubdivideButton();
 }
 
-function subdivideAllToDepth(targetDepth) {
-  for (let depth = 0; depth < targetDepth; depth += 1) {
-    [...mosaic.querySelectorAll(`.tile[data-depth="${depth}"]`)].forEach(splitTile);
+function renderUniformDepth(depth) {
+  if (depth === MAX_DEPTH) {
+    if (!portraitDataUrl) {
+      renderUniformDepth(MAX_DEPTH - 1);
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    destinations.forEach((_, destinationIndex) => {
+      const column = destinationIndex % 2;
+      const row = Math.floor(destinationIndex / 2);
+      const tile = makeTile({
+        x: column * 0.5,
+        y: row * 0.5,
+        size: 0.5,
+        depth,
+        destinationIndex,
+      });
+      tile.classList.add("tile--hit-area");
+      fragment.append(tile);
+    });
+
+    mosaic.classList.add("mosaic--rasterized");
+    if (portraitDataUrl) {
+      mosaic.style.backgroundImage = `url("${portraitDataUrl}")`;
+    }
+    mosaic.replaceChildren(fragment);
+    return;
   }
+
+  clearRasterizedMosaic();
+  const cellsPerSide = 2 ** (depth + 1);
+  const size = 1 / cellsPerSide;
+  const midpoint = cellsPerSide / 2;
+  const fragment = document.createDocumentFragment();
+
+  for (let row = 0; row < cellsPerSide; row += 1) {
+    for (let column = 0; column < cellsPerSide; column += 1) {
+      const destinationIndex =
+        (row >= midpoint ? 2 : 0) + (column >= midpoint ? 1 : 0);
+      fragment.append(
+        makeTile({
+          x: column * size,
+          y: row * size,
+          size,
+          depth,
+          destinationIndex,
+        }),
+      );
+    }
+  }
+
+  mosaic.replaceChildren(fragment);
 }
 
 async function loadPortraitSamples() {
@@ -249,27 +292,122 @@ async function loadPortraitSamples() {
   // A tight square crop keeps the mosaic focused on the face and shoulders.
   samplerContext.drawImage(image, 220, 310, 900, 900, 0, 0, GRID_SIZE, GRID_SIZE);
   pixelData = samplerContext.getImageData(0, 0, GRID_SIZE, GRID_SIZE).data;
+
+  const portraitCanvas = document.createElement("canvas");
+  portraitCanvas.width = PORTRAIT_RENDER_SIZE;
+  portraitCanvas.height = PORTRAIT_RENDER_SIZE;
+  const portraitContext = portraitCanvas.getContext("2d");
+  portraitContext.imageSmoothingEnabled = false;
+  portraitContext.drawImage(
+    sampler,
+    0,
+    0,
+    PORTRAIT_RENDER_SIZE,
+    PORTRAIT_RENDER_SIZE,
+  );
+  portraitDataUrl = portraitCanvas.toDataURL("image/png");
+  if (guidedDepth === MAX_DEPTH) {
+    renderUniformDepth(MAX_DEPTH);
+  }
 }
 
 renderInitialTiles();
 loadPortraitSamples().catch(() => {});
 
-mosaic.addEventListener("pointermove", (event) => {
-  if (event.pointerType === "touch" || !interactionsEnabled) return;
+function tileAtPoint(clientX, clientY) {
+  const tile = document.elementFromPoint(clientX, clientY)?.closest(".tile");
+  return tile && mosaic.contains(tile) ? tile : null;
+}
 
-  const tile = event.target.closest(".tile");
-  if (!tile || Number(tile.dataset.depth) >= MAX_DEPTH) return;
+function splitAtPoint(clientX, clientY, minimumDistance, minimumDelay) {
+  const tile = tileAtPoint(clientX, clientY);
+  if (!tile || Number(tile.dataset.depth) >= MAX_DEPTH) return false;
 
-  const distance = Math.hypot(event.clientX - lastSplitX, event.clientY - lastSplitY);
-  const enoughMovement = Number.isNaN(distance) || distance >= 11;
-  const enoughTime = performance.now() - lastSplitTime >= SPLIT_LOCK_MS;
-  if (!enoughMovement || !enoughTime) return;
+  const distance = Math.hypot(clientX - lastSplitX, clientY - lastSplitY);
+  const enoughMovement = Number.isNaN(distance) || distance >= minimumDistance;
+  const enoughTime = performance.now() - lastSplitTime >= minimumDelay;
+  if (!enoughMovement || !enoughTime) return false;
 
-  lastSplitX = event.clientX;
-  lastSplitY = event.clientY;
+  lastSplitX = clientX;
+  lastSplitY = clientY;
   lastSplitTime = performance.now();
-  splitTile(tile);
+  splitTile(tile, minimumDelay);
+  return true;
+}
+
+function isTouchPointer(event) {
+  return event.pointerType === "touch";
+}
+
+mosaic.addEventListener("pointerdown", (event) => {
+  if (!isTouchPointer(event) || !interactionsEnabled) return;
+
+  touchGesture = {
+    pointerId: event.pointerId,
+    startX: event.clientX,
+    startY: event.clientY,
+    dragging: false,
+    didSplit: false,
+  };
+  lastSplitX = Number.NaN;
+  lastSplitY = Number.NaN;
+  lastSplitTime = 0;
+  mosaic.setPointerCapture(event.pointerId);
 });
+
+mosaic.addEventListener("pointermove", (event) => {
+  if (!interactionsEnabled) return;
+
+  if (isTouchPointer(event)) {
+    if (!touchGesture || event.pointerId !== touchGesture.pointerId) return;
+
+    const dragDistance = Math.hypot(
+      event.clientX - touchGesture.startX,
+      event.clientY - touchGesture.startY,
+    );
+    if (!touchGesture.dragging && dragDistance < TOUCH_DRAG_THRESHOLD) return;
+
+    touchGesture.dragging = true;
+    event.preventDefault();
+    if (
+      splitAtPoint(
+        event.clientX,
+        event.clientY,
+        TOUCH_SPLIT_DISTANCE,
+        TOUCH_SPLIT_LOCK_MS,
+      )
+    ) {
+      touchGesture.didSplit = true;
+    }
+    return;
+  }
+
+  splitAtPoint(event.clientX, event.clientY, 11, SPLIT_LOCK_MS);
+});
+
+function finishTouchGesture(event) {
+  if (!touchGesture || event.pointerId !== touchGesture.pointerId) return;
+
+  if (touchGesture.dragging || touchGesture.didSplit) {
+    suppressClickUntil = performance.now() + 700;
+  }
+  if (mosaic.hasPointerCapture(event.pointerId)) {
+    mosaic.releasePointerCapture(event.pointerId);
+  }
+  touchGesture = null;
+}
+
+mosaic.addEventListener("pointerup", finishTouchGesture);
+mosaic.addEventListener("pointercancel", finishTouchGesture);
+mosaic.addEventListener(
+  "click",
+  (event) => {
+    if (performance.now() >= suppressClickUntil) return;
+    event.preventDefault();
+    event.stopPropagation();
+  },
+  true,
+);
 
 subdivideButton.addEventListener("click", () => {
   if (guidedDepth >= MAX_DEPTH) {
@@ -278,8 +416,13 @@ subdivideButton.addEventListener("click", () => {
   }
 
   guidedDepth += 1;
-  subdivideAllToDepth(guidedDepth);
   updateSubdivideButton();
+  if (guidedRenderFrame) window.cancelAnimationFrame(guidedRenderFrame);
+  const targetDepth = guidedDepth;
+  guidedRenderFrame = window.requestAnimationFrame(() => {
+    renderUniformDepth(targetDepth);
+    guidedRenderFrame = 0;
+  });
 });
 
 window.setTimeout(() => {

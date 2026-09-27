@@ -45,8 +45,17 @@ body {
   overflow: hidden;
   background: var(--tile);
   isolation: isolate;
+  contain: layout paint style;
   user-select: none;
+  touch-action: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+.mosaic--rasterized {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
 }
 
 .tile {
@@ -96,8 +105,22 @@ body {
   filter: brightness(1.16) saturate(1.08);
 }
 
-.tile__label {
+.tile::after {
+  content: attr(data-label);
+  opacity: var(--label-opacity, 1);
   pointer-events: none;
+}
+
+.tile--hit-area,
+.tile--hit-area:hover {
+  border: 0;
+  background: transparent !important;
+  color: transparent !important;
+  filter: none;
+}
+
+.tile--hit-area::after {
+  content: none;
 }
 
 .subdivide {
