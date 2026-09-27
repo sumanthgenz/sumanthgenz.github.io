@@ -1,194 +1,161 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap");
 
-/* latin-ext */
-@font-face {
-  font-family: "Lato";
-  font-style: italic;
-  font-weight: 400;
-  src: local("Lato Italic"), local("Lato-Italic"),
-    url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAUi-qNiXg7eU0.woff2)
-      format("woff2");
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
-    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: "Lato";
-  font-style: italic;
-  font-weight: 400;
-  src: local("Lato Italic"), local("Lato-Italic"),
-    url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAXC-qNiXg7Q.woff2)
-      format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: "Lato";
-  font-style: italic;
-  font-weight: 700;
-  src: local("Lato Bold Italic"), local("Lato-BoldItalic"),
-    url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_FQftx9897sxZ.woff2)
-      format("woff2");
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
-    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: "Lato";
-  font-style: italic;
-  font-weight: 700;
-  src: local("Lato Bold Italic"), local("Lato-BoldItalic"),
-    url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_Gwftx9897g.woff2)
-      format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Lato Regular"), local("Lato-Regular"),
-    url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjxAwXiWtFCfQ7A.woff2)
-      format("woff2");
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
-    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Lato Regular"), local("Lato-Regular"),
-    url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjx4wXiWtFCc.woff2)
-      format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 700;
-  src: local("Lato Bold"), local("Lato-Bold"),
-    url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwaPGQ3q5d0N7w.woff2)
-      format("woff2");
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
-    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 700;
-  src: local("Lato Bold"), local("Lato-Bold"),
-    url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2)
-      format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
+:root {
+  color-scheme: dark;
+  --page: #050505;
+  --tile: #11110f;
+  --line: #edece5;
+  --accent: #60f07b;
 }
 
-body,
-td,
-th,
-tr,
-p,
-a {
-  font-family: "IBM Plex Mono", "Fira Mono", "Menlo", "Monaco", "Consolas",
-    monospace;
-  font-size: 14px;
-  background: #181a1b;
-  color: #e0e0e0;
-}
-
-strong,
-heading,
-papertitle,
-name {
-  font-family: "IBM Plex Mono", "Fira Mono", "Menlo", "Monaco", "Consolas",
-    monospace;
-  color: #e0e0e0;
-}
-
-a {
-  color: #05eeff;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-a:focus,
-a:hover {
-  color: #00bfff;
-  text-decoration: underline;
-}
-
-img.circle {
-  border-radius: 50%;
-  border: 2px solid #222;
-}
-
-img.icon {
-  width: 160px;
-}
-
-/* Remove table borders and backgrounds for minimalism */
-table,
-tr,
-td,
-tbody {
-  border: none !important;
-  background: none !important;
-}
-
-/* Headings */
-heading {
-  font-size: 22px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  color: #e0e0e0;
-}
-
-name {
-  font-size: 32px;
-  font-weight: bold;
-  color: #05eeff;
-  letter-spacing: 2px;
-}
-
-papertitle {
-  font-size: 15px;
-  font-weight: 700;
-  color: #05eeff;
-}
-
-.one,
-.two {
-  width: 160px;
-  height: 160px;
-  position: relative;
-}
-
-.fade {
-  transition: opacity 0.2s ease-in-out;
-}
-
-span.highlight {
-  background-color: #222;
-  color: #05eeff;
-}
-
-/* Minimal padding for a clean look */
-td {
-  padding: 12px 0;
-}
-
-/* Remove box shadows, outlines, etc. */
 * {
-  box-shadow: none !important;
-  outline: none !important;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--line);
+  font-family: "DM Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+.page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.experience {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.mosaic {
+  position: relative;
+  container-type: inline-size;
+  width: min(88vmin, 512px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--tile);
+  isolation: isolate;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tile {
+  --tile-size: 50;
+  position: absolute;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 2px solid var(--page);
+  background: var(--tile);
+  color: var(--line);
+  font-size: calc(var(--tile-size) * 0.22cqi);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  transition:
+    filter 130ms ease,
+    color 130ms ease;
+  will-change: transform, opacity;
+}
+
+.tile[data-depth="0"] {
+  border: 2px solid var(--line);
+}
+
+.tile[data-depth="1"],
+.tile[data-depth="2"] {
+  border-width: 1px;
+}
+
+.tile[data-depth="3"] {
+  border-width: 0.5px;
+}
+
+.tile[data-depth="4"] {
+  border-width: 0.25px;
+}
+
+.tile[data-depth="5"] {
+  border-width: 0;
+}
+
+.tile:hover {
+  z-index: 2;
+  color: var(--accent);
+  filter: brightness(1.16) saturate(1.08);
+}
+
+.tile__label {
+  pointer-events: none;
+}
+
+.subdivide {
+  min-width: 5rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #5c5c57;
+  background: transparent;
+  color: var(--line);
+  font: 500 0.75rem/1 "DM Mono", "SFMono-Regular", Consolas, monospace;
+  letter-spacing: 0.08em;
+  transition:
+    border-color 130ms ease,
+    background-color 130ms ease;
+}
+
+.subdivide:hover {
+  border-color: var(--line);
+  background: #11110f;
+}
+
+.subdivide:focus-visible {
+  outline: 2px solid var(--line);
+  outline-offset: 3px;
+}
+
+.sampler {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding: 0.65rem;
+  }
+
+  .mosaic {
+    width: min(96vw, 512px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .subdivide {
+    transition: none;
+  }
 }

@@ -1,75 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154584969-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-    </script>
-
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Sumanth Gurram — CV, LinkedIn, GitHub, and X."
+    />
     <title>Sumanth Gurram</title>
-    <meta name="author" content="Sumanth Gurram">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    <link rel="icon" type="image/png" href="assets/seal_icon.png">
-</head>
+    <link rel="icon" type="image/png" href="assets/seal_icon.png" />
+    <link rel="stylesheet" href="stylesheet.css" />
+  </head>
 
-<body>
-    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-        <tr style="padding:0px">
-            <td style="padding:0px">
-                <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                    <tr style="padding:0px">
-                        <td style="padding:2.5%;width:63%;vertical-align:middle">
-                            <p style="text-align:center">
-                                <name>Sumanth Gurram</name>
-                            </p>
-                            <p>
-                                By trade, I am an engineer / researcher based in San Francisco. I studied Electrical Engineering Computer Science (EECS) and Business at
-                                UC Berkeley through the <a href="https://met.berkeley.edu/">M.E.T. Program</a>.
-                            </p>
-                            <p style="text-align:center">
-                                <a href="assets/cv.pdf">CV</a> &nbsp/&nbsp
-                                <a href="https://www.linkedin.com/in/sumanth-gurram/">LinkedIn</a> &nbsp/&nbsp
-                                <a href="https://github.com/sumanthgenz">Github</a>
-                            </p>
-                        </td>
-                        <td style="padding:2.5%;width:40%;max-width:40%">
-                            <a href="assets/profile.jpg">
-                                <img style="width:100%;max-width:100%" alt="profile photo" src="assets/profile.jpg" class="hoverZoomLink circle">
-                            </a>
-                        </td>
-                    </tr>
-                </table>
+  <body>
+    <main class="page">
+      <h1 class="sr-only">Sumanth Gurram</h1>
 
-                <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                    <tr>
-                        <td style="padding:20px;width:100%;vertical-align:middle">
-                            <heading>Engineering</heading>
-                            <p>
-                                I'm currently working on agent orchestration + evaluation systems at <a href="https://decagon.ai/">Decagon</a>. Previously, I was a AI + product engineer at <a href="https://ziphq.com/">Zip</a>. Some of my past internship experience includes building infra
-                                for self-driving cars at <a href="https://www.nuro.ai/">Nuro</a>
-                                and training dexterous robots in simulation at <a href="https://www.apple.com/">Apple</a>.
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+      <section class="experience" aria-label="Interactive portrait links">
+        <div
+          id="mosaic"
+          class="mosaic"
+          aria-hidden="true"
+        ></div>
 
-                <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-                    <tr>
-                        <td style="padding:20px;width:100%;vertical-align:middle">
-                            <heading>Research</heading>
-                            <p>
-                                My research experience includes
-                                multi-modal video understanding at <a href="https://bair.berkeley.edu/">BAIR</a>, <a href="https://segment-anything.com/">Segment Anything</a> at <a href="https://ai.facebook.com/">Facebook AI Research</a> (now in Meta's Superintelligence Lab) and multi-cloud ML infra at <a href="https://github.com/skypilot-org/skypilot">SkyPilot</a> under Prof. Ion Stoica.
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-</body>
+        <button
+          id="subdivide"
+          class="subdivide"
+          type="button"
+          aria-label="Subdivide all tiles one level"
+        >
+          0/5
+        </button>
+      </section>
+
+      <nav class="sr-only" aria-label="Sumanth's links">
+        <a href="assets/cv.pdf">CV</a>
+        <a href="https://www.linkedin.com/in/sumanth-gurram/">LinkedIn</a>
+        <a href="https://github.com/sumanthgenz">GitHub</a>
+        <a href="https://x.com/sumantheg?s=11">X</a>
+      </nav>
+
+      <canvas
+        id="sampler"
+        class="sampler"
+        width="64"
+        height="64"
+        aria-hidden="true"
+      ></canvas>
+    </main>
+
+    <script src="mosaic.js"></script>
+  </body>
 </html>
